@@ -1,0 +1,12 @@
+.submitButton{
+    background-color:#507D2A;
+}
+
+.submitButton:hover{
+    background-color:#8DDE4A;
+}
+
+.disabled{
+    background-color:#4C4A45;
+    color:#858585;
+}

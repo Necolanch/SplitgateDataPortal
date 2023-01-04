@@ -1,0 +1,35 @@
+.navigation{
+    background-color:#218EAC;
+}
+
+.home, .search, .settings, .details{
+    cursor: pointer;
+}
+
+.home-icon, .search-icon, .settings-icon, .details-icon{
+    filter: invert(12%) sepia(15%) saturate(273%) hue-rotate(47deg) brightness(104%) contrast(86%);
+}
+
+.home-icon:hover, .search-icon:hover, .settings-icon:hover, .details-icon:hover{
+    filter: invert(66%) sepia(76%) saturate(6144%) hue-rotate(335deg) brightness(99%) contrast(85%);
+    cursor:pointer;
+}
+
+.serviceTag{
+    color:#EFB82A;
+}
+
+.skull, .headshots, .stopwatch, .trophy, .percentage, .medal{
+    width:25px;
+    height:25px;
+}
+
+.kd{
+    margin-top:1.1em;
+}
+
+.rank{
+    margin-top:.75em;
+}
+
+.halo-button{background-color:#628544;border:0;border-radius:3px;color:hsla(0,0%,100%,.85);cursor:pointer;margin-right:.5rem;padding:.5rem 1.5rem;transition:all .5s ease}

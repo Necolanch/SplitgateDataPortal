@@ -1,0 +1,49 @@
+.inputBorder{
+    border-color:#848484;
+}
+
+.searchForm{
+    cursor:initial;
+}
+
+.searchInput {
+    background-color:#EAEAEA;
+    transform: outline;
+}
+
+.searchInput:focus{
+    outline: 3px solid #EFB82A;
+    transition: outline .1s ease
+}
+
+.searchButton{
+    background-color:#EFB82A;
+    color:#EAEAEA;
+}
+
+.searchButton:hover{
+    background-color:#FCB80F;
+}
+
+.addFriend{
+    background-color:#EFB82A;
+}
+
+.friend:hover{
+    background-color:#848484;
+    cursor:pointer;
+}
+
+.errorIcon{
+    filter: invert(46%) sepia(37%) saturate(1073%) hue-rotate(315deg) brightness(88%) contrast(95%);
+}
+
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button{
+    -webkit-appearance:none;
+    margin:0;
+}
+
+input[type=number]{
+    -moz-appearance:textfield;
+}

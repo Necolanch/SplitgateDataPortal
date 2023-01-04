@@ -1,0 +1,12 @@
+.serviceRecord, .medals {
+    margin-right:0;
+}
+
+.gunfight, .damage{
+    width:20px;
+    height:20px;
+}
+
+.kdratio{
+    margin-bottom:-1.3em;
+}
