@@ -26,16 +26,17 @@ const signup = (alias, gamertag, platform, password) => {
     .catch((error) => console.log(error));
 };
 
-const login = (alias, gamertag, password) => {
-  fetch(`${server}/signin`, {
+const login = (gamertag, password) => {
+  fetch(`${server}/login`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: { gamertag, password },
+    body: JSON.stringify({ gamertag, password }),
   })
     .then((response) => response.json())
     .then((data) => {
       if (data.token) {
         localStorage.setItem("user", JSON.stringify(data));
+        window.location.href = "http://localhost:3000/home";
       }
       return data;
     });

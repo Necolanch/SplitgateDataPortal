@@ -8,7 +8,7 @@ import Details from "./pages/Details";
 import SearchResult from "./pages/SearchResult";
 import Landing from "./pages/Landing";
 import Signup from "./pages/Signup";
-//import Login from "./pages/Login";
+import Login from "./pages/Login";
 import { Routes, Route } from "react-router-dom";
 
 import "./CSS/root.css";
@@ -25,7 +25,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Landing />} />
           <Route path="/signup" element={<Signup />} />
-
+          <Route path="/login" element={<Login />} />
           <Route path="/home" element={<Home />} />
           <Route path="/search" element={<Search />} />
           <Route path="/settings" element={<Settings />} />
