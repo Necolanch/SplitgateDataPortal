@@ -7,7 +7,7 @@ const User = require("../models/userModel");
 const config = require("../config");
 
 const localOptions = {
-  usernameField: "gamertag",
+  usernameField: "gamertag"
 };
 
 const localStrategy = new LocalStrategy(localOptions, function (

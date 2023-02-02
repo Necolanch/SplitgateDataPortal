@@ -4,6 +4,7 @@ const cors = require("cors");
 const mongoose = require("mongoose");
 const passport = require("passport");
 const passportService = require("./services/passport");
+const session=require("express-session");
 const protectedRoute = passport.authenticate("jwt", { session: false });
 require("dotenv").config();
 const port = process.env.port || 3001;
@@ -18,6 +19,12 @@ const authRoutes = require("./routes/authRoutes");
 app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(session({
+  secret:"98hbuijnwhe4uy5",
+  resave:false,
+  saveUninitialized:true
+}))
+
 
 //middleware to handle CORS
 app.use((req, res, next) => {
@@ -34,8 +41,8 @@ app.use((req, res, next) => {
   next();
 });
 
-app.get("/", protectedRoute, (req, res, next) => {
-  generalStats("steam", "76561198278688829")
+app.get("/:platform/:gt", protectedRoute, (req, res, next) => {
+  generalStats(req.params.platform, req.params.gt)
     .then((result) => {
       return res.status(200).json(result);
     })

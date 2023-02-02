@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect} from "react";
+import { useNavigate } from "react-router-dom";
 import { ShepherdTour, TourMethods } from "react-shepherd";
 import Start from "../components/Start";
 
@@ -187,10 +188,12 @@ const Home = (props) => {
   const [teabags, setTeabags] = useState([]);
   const [rank, setRank] = useState([]);
   const [gamertag, setGamertag] = useState([]);
+  const navigate=useNavigate();
 
+  const user=JSON.parse(localStorage.getItem("user"))
   useEffect(() => {
     const getStats = async () => {
-      await fetch(`http://localhost:3001/`, { headers: authHeader() })
+      await fetch(`http://localhost:3001/${user.user_platform}/${user.user_gt}`, { headers: authHeader() })
         .then((response) => response.json())
         .then((result) => {
           const overall = result.data.segments.find(
@@ -211,7 +214,11 @@ const Home = (props) => {
           setAll();
         });
     };
-    getStats();
+    if (user && user.token) {
+      getStats();
+    } else {
+      navigate("/")
+    }
     return;
   }, []);
 
