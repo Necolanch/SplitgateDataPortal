@@ -16,7 +16,7 @@ const Signup = (props) => {
     try {
       console.log("Trying signup");
       authService.signup(alias, gamertag, platform, password);
-      //navigate("/home");
+      navigate("/login");
     } catch (error) {
       console.error(error);
     }
@@ -35,7 +35,7 @@ const Signup = (props) => {
           onChange={(e) => setAlias(e.target.value)}
         ></input>
 
-        <label>Gamertag:</label>
+        <label>Gamertag/SteamID:</label>
         <input
           type="text"
           name="gamertag"
