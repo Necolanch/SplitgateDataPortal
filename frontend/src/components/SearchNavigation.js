@@ -16,7 +16,7 @@ const SearchNavigation = () => {
         />
       </Link>
 
-      <Link to="/">
+      <Link to="/home">
         <div className="home mx-auto w-fit hover:shadow-md hover:shadow-black/25 p-2 mb-10 rounded">
           <img
             className="home-icon"
