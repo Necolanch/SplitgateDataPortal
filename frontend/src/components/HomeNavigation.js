@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 const HomeNavigation = () => {
   return (
     <nav className="navigation absolute h-screen flex-auto flex-col w-24 z-10">
-      <Link to="/">
+      <Link to="/home">
         <img
           className="mx-auto mb-60 relative top-10 hover:cursor-pointer"
           src={require("../Icons-IMG/splitgate.png")}
