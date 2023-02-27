@@ -190,7 +190,7 @@ const Home = (props) => {
   const [gamertag, setGamertag] = useState([]);
   const navigate=useNavigate();
 
-  const user=JSON.parse(localStorage.getItem("user"))
+  const user=JSON.parse(localStorage.getItem("user"));
   useEffect(() => {
     const getStats = async () => {
       await fetch(`http://localhost:3001/${user.user_platform}/${user.user_gt}`, { headers: authHeader() })
