@@ -1,7 +1,7 @@
 import {useRef, useState} from "react";
 
 const GlobalState = () => {
-    const gamertag = useRef("Necolanch");
+    const gamertag = useRef("");
     const [searchGamertag, setSearchGamertag]=useState("");
     const [searchPlatform, setSearchPlatform]=useState("");
     const firstNameInput = useRef("");
