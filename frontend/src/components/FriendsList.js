@@ -14,7 +14,7 @@ const FriendsList = props => {
     const alias = useRef(null);
     const navigate = useNavigate();
 
-    const {setSearchGamertag}=useContext(GamertagContext);
+    const {setSearchGamertag, setSearchPlatform}=useContext(GamertagContext);
     const user=JSON.parse(localStorage.getItem("user"));
 
     useEffect(()=>{
@@ -66,8 +66,9 @@ const FriendsList = props => {
 
     const searchFriend = async (gt, platform, e) => {
         e.preventDefault()
+        setSearchPlatform(platform)
         setSearchGamertag(gt);
-        await fetch(`http://localhost:3001/search/${platform}/${gt}`)
+        await fetch(`http://localhost:3001/search/${platform}/${gt}`, {headers:authHeader()})
         .then(response=>response.json())
         .then(result=>{
             if (result.message) {

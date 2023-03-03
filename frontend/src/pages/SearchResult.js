@@ -32,6 +32,7 @@ import { ImSigma } from "react-icons/im";
 
 import { GamertagContext } from "../contexts/Gamertag";
 
+import authHeader from "../services/authHeader";
 import "../CSS/details.css";
 
 const SearchResult = (props) => {
@@ -187,7 +188,7 @@ const SearchResult = (props) => {
   useEffect(() => {
     const getStats = async () => {
       await fetch(
-        `http://localhost:3001/search/${searchPlatform}/${searchGamertag}`
+        `http://localhost:3001/search/${searchPlatform}/${searchGamertag}`, {headers:authHeader()}
       )
         .then((response) => response.json())
         .then((result) => {
