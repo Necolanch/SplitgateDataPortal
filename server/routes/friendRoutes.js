@@ -7,7 +7,6 @@ const User = require("../models/userModel");
 router.get("/:gt", (req, res)=>{
   User.findOne({gamertag:req.params.gt})
       .then(result=>{
-        console.log(result.friends)
         return res.status(200).json(result)
       })
       .catch(err=>{
@@ -34,8 +33,8 @@ router.post("/:gt", (req, res) => {
         }
       }
       User.findOneAndUpdate({gamertag: req.params.gt}, {friends:[{gamertag:req.body.gamertag, platform:req.body.platform, alias: req.body.alias}, ...result.friends]}, {returnOriginal:false})
-          .then(res=>{
-            return res.status(200).json(res)
+          .then(response=>{
+            return res.status(200).json(response)
           })
       return res.status(200).json(result);
     })
@@ -51,11 +50,12 @@ router.post("/:gt", (req, res) => {
 
 router.delete("/:gt/:friend", (req, res) => {
   const gamertag = req.params.gt;
-  User.find({ gamertag: gamertag })
+  User.findOne({ gamertag: gamertag })
     .exec()
     .then((result) => {
-      result.friends.filter((friend) => friend !== req.params.friend);
-      res.status(200).json(result);
+      const update=result.friends.filter((friend) => friend.gamertag !== req.params.friend);
+      User.findOneAndUpdate({gamertag:req.params.gt}, {friends:update})
+          .then(response=>res.status(200).json(response))
     })
     .catch((err) => {
       res.status(500).json({

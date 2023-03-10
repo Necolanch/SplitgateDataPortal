@@ -55,7 +55,10 @@ const FriendsList = props => {
     const deleteFriend = async (gt, friend, e) => {
         e.preventDefault();
         await fetch(`http://localhost:3001/friends/${gt}/${friend}`, {
-            method:"DELETE"
+            method:"DELETE",
+            headers:{
+                "Authorization":user.token
+            }
         })
         .then()
         .catch(err=>{
