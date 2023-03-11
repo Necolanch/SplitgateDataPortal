@@ -36,7 +36,6 @@ router.post("/:gt", (req, res) => {
           .then(response=>{
             return res.status(200).json(response)
           })
-      return res.status(200).json(result);
     })
     .catch((err) => {
       console.log(err)
