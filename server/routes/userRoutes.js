@@ -28,8 +28,7 @@ router.get("/:gamertag", (req, res) => {
 router.patch("/:gamertag", (req, res) => {
   const gt = req.params.gamertag;
   const updatedAccount = {
-    gamertag: gt,
-    alias: req.body.alias,
+    alias: req.body.alias
   };
   User.findOneAndUpdate({ gamertag: gt }, updatedAccount, {
     returnOriginal: false,

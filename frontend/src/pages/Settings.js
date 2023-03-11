@@ -1,85 +1,61 @@
 import React, {useState, useEffect, useContext} from "react";
 
 import SettingsNavigation from "../components/SettingsNavigation";
-import { FirstNameInput, LastNameInput, EmailInput, RightDisabled } from "../components/Input";
+import { FirstNameInput, LeftDisabled, RightDisabledInput, RightDisabledPassword } from "../components/Input";
 import { SettingsAvatar } from "../components/Avatar";
 
 import {GamertagContext} from "../contexts/Gamertag"
+import authHeader from "../services/authHeader";
 
 import "../CSS/settings.css";
 
 const Settings = () => {
   
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [email, setEmail] = useState("");
+  //const [password, setPassword] = useState("");
+  const [platform, setPlatform] = useState("");
+  const [alias, setAlias] = useState("");
   const [gt, setGt] = useState("");
 
-  const {gamertag, firstNameInput, lastNameInput, emailInput} = useContext(GamertagContext);
+  const {firstNameInput, lastNameInput, emailInput} = useContext(GamertagContext);
+  const user=JSON.parse(localStorage.getItem("user"));
 
   useEffect(()=>{
     const getUser = async () => {
-      await fetch(`http://localhost:3001/users/${gamertag.current}`)
+      await fetch(`http://localhost:3001/users/${user.user_gt}`, {headers:authHeader()})
       .then(response=>response.json())
       .then(result=>{
-          if(result===null){
-            fetch(`http://localhost:3001/users`, {
-                method:"POST",
-                headers:{
-                  "Content-Type":"application/json"
-                },
-                body:JSON.stringify({
-                  firstName:"Nicholas",
-                  lastName:"Cruz",
-                  email:"necolynche@gmail.com",
-                  gamertag:gamertag.current
-                })
-              })
-              .then(response=>response.json())
-              .then(result=>{
-                setFirstName(result.firstName);
-                setLastName(result.lastName);
-                setGt(result.gamertag);
-                setEmail(result.email);
-              })
-              .catch(err=>{
-                throw Error(err.message);
-              })
-          } else{
-        setFirstName(result.firstName);
-        setLastName(result.lastName);
         setGt(result.gamertag);
-        setEmail(result.email);
-        }
+        setAlias(result.alias);
+        setPlatform(result.platform);
+        //setPassword(result.password)
       })
       .catch(err=>{
+        console.log(err)
         throw Error(err.message);
       })
     }
     return ()=>{
       getUser();
     };
-  }, [gamertag])
+  }, [gt])
 
-  const updateAccount = async (e, first, last, email) => {
+  const updateAccount = async (e, newAlias) => {
     e.preventDefault();
     await fetch(`http://localhost:3001/users/${gt}`, {
       method:"PATCH",
       headers:{
+        "Authorization":user.token,
         "Content-Type":"application/json"
       },
       body:JSON.stringify({
-        firstName:first,
-        lastName:last,
-        email:email,
-        gamertag:gt
+        alias:newAlias
       })
     })
     .then(response=>response.json())
     .then(result=>{
-      setFirstName(result.firstName);
-      setLastName(result.lastName);
-      setEmail(result.email);
+      setGt(result.gamertag);
+        setAlias(result.alias);
+        setPlatform(result.platform);
     })
     .catch(err=>{
       throw Error(err.message);
@@ -91,25 +67,21 @@ const Settings = () => {
             <SettingsNavigation/>
 
             <h1 className="absolute text-3xl font-bold text-white ml-40 mt-6">Halo Fakepoint</h1>
-            <SettingsAvatar/>
             
 
             <h3 className="absolute w-screen text-center text-3xl uppercase font-semibold text-white mt-16">Settings</h3>
 
-            <form onSubmit={e=>updateAccount(e, firstNameInput.current.value, lastNameInput.current.value, emailInput.current.value)} className="searchForm inputBorder absolute w-2/5 h-3/5 flex flex-col items-center top-1/3 left-1/4 ml-20 z-10 border">
+            <form onSubmit={e=>updateAccount(e, firstNameInput.current.value)} className="searchForm inputBorder absolute w-2/5 h-3/5 flex flex-col items-center top-1/4 left-1/4 ml-20 z-10 border">
               <div className="mt-40">
                 <div className="flex mb-20">
 
-                  <FirstNameInput label="First Name" value={firstName} />
+                  <FirstNameInput label="Alias" value={alias} />
 
-                  <LastNameInput label="Last Name" value={lastName} />
+                  <RightDisabledInput label="Platform" value={platform} />
                 </div>
 
                 <div className="flex">
-
-                  <EmailInput label="Email" value={email} />
-
-                  <RightDisabled label="Gamertag" value={gt} />
+                  <LeftDisabled label="Gamertag" value={gt} />
                 </div>
 
               </div>
