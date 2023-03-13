@@ -46,10 +46,11 @@ const FriendsList = props => {
                 alias:alias
             })
         })
+        .then(response=>response.json())
+        .then(result=>setFriends(result.friends))
         .catch(err=>{
             throw Error (err.message)
         })
-        findFriends();
     }
 
     const deleteFriend = async (gt, friend, e) => {
