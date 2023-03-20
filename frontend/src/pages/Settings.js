@@ -68,7 +68,6 @@ const Settings = () => {
 
             <h1 className="absolute text-3xl font-bold text-white ml-40 mt-6">Halo Fakepoint</h1>
             
-
             <h3 className="absolute w-screen text-center text-3xl uppercase font-semibold text-white mt-16">Settings</h3>
 
             <form onSubmit={e=>updateAccount(e, firstNameInput.current.value)} className="searchForm inputBorder absolute w-2/5 h-3/5 flex flex-col items-center top-1/4 left-1/4 ml-20 z-10 border">
