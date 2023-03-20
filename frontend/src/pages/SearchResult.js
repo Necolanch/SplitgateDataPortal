@@ -210,7 +210,6 @@ const SearchResult = (props) => {
             );
             //const ranked2v2=result.data.segments.find(obj=>obj.metadata.name==="Ranked 2v2");
             //const rankedTakedown=result.data.segments.find(obj=>obj.metadata.name==="Ranked Takedown");
-            console.log(ranked4v4);
 
             setProfilePic(result.data.platformInfo.avatarUrl);
             setGt(result.data.platformInfo.platformUserHandle);
@@ -395,7 +394,6 @@ const SearchResult = (props) => {
       <h1 className="absolute text-3xl font-bold text-white ml-40 mt-6">
         Splitgate Data Portal
       </h1>
-      <Avatar />
 
       <TopSearch />
 

@@ -8,6 +8,7 @@ import {Avatar} from "../components/Avatar";
 import { GamertagContext } from "../contexts/Gamertag";
 
 import "../CSS/search.css";
+import authHeader from "../services/authHeader";
 
 const Search = () => {
   const [playerSearched, setPlayerSearched]=useState(false);
@@ -41,10 +42,10 @@ const Search = () => {
     }
     setSearchGamertag(gt);
     setSearchPlatform(platform);
-    await fetch(`http://localhost:3001/search/${platform}/${gt}`)
+    await fetch(`http://localhost:3001/search/${platform}/${gt}`, {headers:authHeader()})
     .then(response=>response.json())
     .then(result=>{
-      if (result.errors) {
+      if (result.errors[0].message) {
         if (document.querySelector(".error")) {
           return null;
         } else {
@@ -68,8 +69,6 @@ useEffect(()=>{
             <SearchNavigation/>
 
             <h1 className="absolute text-3xl font-bold text-white ml-40 mt-6">Splitgate Data Portal</h1>
-            
-            <Avatar/>
 
           <div className="search">
             <h3 className="absolute w-screen text-center text-3xl uppercase font-semibold text-white mt-16">Search</h3>

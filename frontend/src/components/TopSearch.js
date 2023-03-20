@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { GamertagContext } from "../contexts/Gamertag";
 
 import "../CSS/search.css";
+import authHeader from "../services/authHeader";
 
 const TopSearch = props => {
     const [playerSearched, setPlayerSearched]=useState(false);
@@ -32,10 +33,10 @@ const TopSearch = props => {
         }
         setSearchGamertag(gt);
         setSearchPlatform(platform);
-        await fetch(`http://localhost:3001/search/${platform}/${gt}`)
+        await fetch(`http://localhost:3001/search/${platform}/${gt}`, {headers:authHeader()})
         .then(response=>response.json())
         .then(result=>{
-          if (result.errors) {
+          if (result.errors[0].message) {
             if (document.querySelector(".error")) {
               return null;
             } else {

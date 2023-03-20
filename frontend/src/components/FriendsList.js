@@ -10,8 +10,8 @@ const FriendsList = props => {
     const [friends, setFriends]=useState([]);
     const [friendSearched, setFriendSearched]=useState(false);
     const newFriend = useRef(null);
-    const platform = useRef(null);
-    const alias = useRef(null);
+    const newPlatform = useRef(null);
+    const newAlias = useRef(null);
     const navigate = useNavigate();
 
     const {setSearchGamertag, setSearchPlatform}=useContext(GamertagContext);
@@ -47,7 +47,12 @@ const FriendsList = props => {
             })
         })
         .then(response=>response.json())
-        .then(result=>setFriends(result.friends))
+        .then(result=>{
+            setFriends(result.friends)
+            newFriend.current.value="";
+            newPlatform.current.value="";
+            newAlias.current.value="";
+        })
         .catch(err=>{
             throw Error (err.message)
         })
@@ -97,7 +102,7 @@ const FriendsList = props => {
       }, [friendSearched, navigate])
 
     return (
-        <form onSubmit={e=>addFriend(newFriend.current.value, platform.current.value, alias.current.value, e)} className="friendsSearch absolute w-1/6 h-auto flex flex-col items-center mt-40 ml-24 top-2/4 left-3/4 bg-black/20 text-white rounded-md z-10 cursor-default">
+        <form onSubmit={e=>addFriend(newFriend.current.value, newPlatform.current.value, newAlias.current.value, e)} className="friendsSearch absolute w-1/6 h-auto flex flex-col items-center mt-40 ml-24 top-2/4 left-3/4 bg-black/20 text-white rounded-md z-10 cursor-default">
                 <h5 className="my-4 text-lg font-medium">Friends List</h5>
                 <ul className="friendsList w-full h-24 pl-4 mb-4 overflow-auto">
                     {
@@ -127,12 +132,12 @@ const FriendsList = props => {
                 </div>
 
                 <label>Alias:</label>
-                <input className="searchInput text-black" ref={alias}/>
+                <input className="searchInput text-black" ref={newAlias}/>
                 
                 
                 <div className="inputBorder border h-auto p-2 mb-4 flex flex-col text-center">
                 <label>Platform:</label>
-                <input className="searchInput text-black" ref={platform}/>
+                <input className="searchInput text-black" ref={newPlatform}/>
                 </div>
 
                 <div className="inputBorder border p-1 mb-4">

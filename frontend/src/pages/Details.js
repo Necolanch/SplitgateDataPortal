@@ -203,8 +203,6 @@ const Details = props => {
         <DetailsNavigation />
 
         <h1 className="absolute text-3xl font-bold text-white ml-40 mt-6">Halo Fakepoint</h1>
-           
-            <Avatar/>
 
             <div className="absolute w-screen flex justify-end mt-16 -ml-20 mb-10 text-white text-xl font-medium">
       </div>
