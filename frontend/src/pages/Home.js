@@ -5,7 +5,6 @@ import Start from "../components/Start";
 
 import HomeNavigation from "../components/HomeNavigation";
 import authHeader from "../services/authHeader";
-import { Avatar } from "../components/Avatar";
 
 import {
   GiDeathSkull,
@@ -233,7 +232,6 @@ const Home = (props) => {
         <h1 className="absolute text-3xl font-bold text-white ml-40 mt-6">
           Spligate Data Portal
         </h1>
-
         <section className="overview absolute left-2/4 w-2/5 text-white flex justify-end mt-72 text-xl z-10">
           <h3 className="-mt-32 text-2xl font-semibold">
             Welcome <span className="serviceTag">{gamertag}</span>!

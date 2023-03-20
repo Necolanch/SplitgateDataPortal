@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import Logout from "./Logout";
 
 import "../CSS/home.css";
 
@@ -63,6 +64,8 @@ const DetailsNavigation = () => {
           />
         </div>
       </Link>
+
+      <Logout/>
     </nav>
   );
 };

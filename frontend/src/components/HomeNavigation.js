@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import Logout from "./Logout";
 
 const HomeNavigation = () => {
   return (
@@ -61,6 +62,8 @@ const HomeNavigation = () => {
           />
         </div>
       </Link>
+
+      <Logout/>
     </nav>
   );
 };
