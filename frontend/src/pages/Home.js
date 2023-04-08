@@ -187,9 +187,11 @@ const Home = (props) => {
   const [teabags, setTeabags] = useState([]);
   const [rank, setRank] = useState([]);
   const [gamertag, setGamertag] = useState([]);
+  
   const navigate=useNavigate();
 
   const user=JSON.parse(localStorage.getItem("user"));
+  
   useEffect(() => {
     const getStats = async () => {
       await fetch(`http://localhost:3001/${user.user_platform}/${user.user_gt}`, { headers: authHeader() })
@@ -218,11 +220,26 @@ const Home = (props) => {
     } else {
       navigate("/")
     }
-    return;
+    return ()=>{
+      let visits = parseInt(localStorage.getItem("visits"));
+    if (isNaN(visits)) {
+      // First visit, set visits count to 1 and display tour
+      localStorage.setItem("visits",1)
+      // Display tour
+      console.log('Welcome to our website! Take a tour to learn about our features.');
+    } else {
+      // Not first visit, increment visits count and check if tour should be displayed
+      localStorage.setItem("visits", visits+1);
+      console.log("home again")
+    }
+    };
   }, []);
 
-  return (
-    <ShepherdTour steps={steps} tourOptions={tourOptions}>
+  const visits = parseInt(localStorage.getItem("visits"));
+  console.log(visits)
+  if (isNaN(visits)) {
+    return (
+      <ShepherdTour steps={steps} tourOptions={tourOptions}>
       <TourMethods>
         {(tourContext) => <Start startTour={tourContext} />}
       </TourMethods>
@@ -276,7 +293,59 @@ const Home = (props) => {
         />
       </div>
     </ShepherdTour>
-  );
+    );
+  } else{
+    return (
+      <div className="wrapper h-screen">
+          <HomeNavigation />
+          <h1 className="absolute text-3xl font-bold text-white ml-40 mt-6">
+            Spligate Data Portal
+          </h1>
+          <section className="overview absolute left-2/4 w-2/5 text-white flex justify-end mt-72 text-xl z-10">
+            <h3 className="-mt-32 text-2xl font-semibold">
+              Welcome <span className="serviceTag">{gamertag}</span>!
+            </h3>
+            <div className="-mt-10 -mr-64 text-2xl font-semibold underline uppercase">
+              Overview
+            </div>
+            <ul className="text-right mr-28">
+              <li className="mb-4">
+                <GiDeathSkull className="skull -mb-6 ml-12" />
+                Kills &nbsp; {kills}
+              </li>
+              <li className="mb-4">
+                <GiTargeted className="headshots -mb-6" />
+                Headshots &nbsp; {headshots}
+              </li>
+              <li className="mb-4">
+                <GiStopwatch className="stopwatch -mb-6 -ml-12" />
+                Time Played &nbsp; {timePlayed}
+              </li>
+            </ul>
+            <ul className="">
+              <li className="wins">
+                {wins} &nbsp; Wins{" "}
+                <GiLaurelsTrophy className="trophy -mt-7 ml-24" />
+              </li>
+              <li className="kd">
+                {teabags} &nbsp; Teabags{" "}
+                <FaPercentage className="percentage -mt-6 ml-32" />
+              </li>
+              <li className="rank">
+                {rank} Rank <GiStarMedal className="medal -mt-6 ml-36" />
+              </li>
+            </ul>
+          </section>
+          <img
+            className="bg w-screen h-screen opacity-10 grayscale"
+            src={require("../Icons-IMG/splitgatebg.jpg")}
+            alt=""
+            width="2000"
+            height="1270"
+          />
+        </div>
+    );
+  }
 };
 
 export default Home;
