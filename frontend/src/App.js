@@ -18,7 +18,6 @@ import GlobalState from "./globalState";
 
 function App() {
   const store = GlobalState();
-
   return (
     <div className="App">
       <GamertagContext.Provider value={store}>
