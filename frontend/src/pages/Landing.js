@@ -1,8 +1,12 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
+const user=JSON.parse(localStorage.getItem("user"));
 const Landing = (props) => {
   const navigate = useNavigate();
+  if(user){
+    navigate("/home");
+  }
   return (
     <div>
       <h1 className="absolute text-3xl font-bold text-white ml-40 mt-6">
