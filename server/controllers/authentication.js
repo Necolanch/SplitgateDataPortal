@@ -64,6 +64,5 @@ exports.signin = (req, res, next) => {
       token: tokenForUser(user),
       user_gt: user.gamertag,
       user_platform: user.platform,
-    })
-    .redirect("http://localhost:3000/home");
+    });
 };
