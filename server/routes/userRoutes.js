@@ -1,13 +1,7 @@
 const express = require("express");
 const router = express.Router();
-const passport = require("passport");
-const passportService = require("../services/passport");
-
-const requireLogin = passport.authenticate("local", { session: false });
 
 const User = require("../models/userModel");
-
-const AuthenticationController = require("../controllers/authentication");
 
 router.get("/:gamertag", (req, res) => {
   const gt = req.params.gamertag;

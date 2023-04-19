@@ -201,7 +201,6 @@ const SearchResult = (props) => {
               }
               child.classList.remove("hidden");
             });
-            console.log(result);
             const overall = result.data.segments.find(
               (obj) => obj.type === "overview"
             );

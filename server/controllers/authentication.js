@@ -24,13 +24,10 @@ exports.signup = (req, res, next) => {
   }
 
   User.findOne({ gamertag: gamertag }, (error, existingUser) => {
-    console.log("finding user");
     if (error) {
-      console.log(error);
       return next(error);
     }
     if (existingUser) {
-      console.log("User exists already");
       return res.status(422).json({ error: "Gamertag already in use" });
     }
 
@@ -44,15 +41,9 @@ exports.signup = (req, res, next) => {
     user.save((error) => {
       console.log("saving user");
       if (error) {
-        console.log(error);
         return next(error);
       }
-      res.json({
-        user_id: user._id,
-        token: tokenForUser(user),
-        gamertag: gamertag,
-        platform: platform,
-      });
+      res.status(200).end();
     });
   });
 };

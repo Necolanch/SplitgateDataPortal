@@ -15,10 +15,6 @@ const TopSearch = props => {
     const season=useRef("");
 
     const searchPlayer = async(gt, platform, event) => {
-        //Use state variable for if a player is searched, set to false initially. If that is true
-        //and valid, return should be of Details page component with gamertag prop passed in
-        //If false do another ternary asking if errorStatus is true or false, if true return
-        //search page with error message, if false return Search page as normal
         event.preventDefault();
         const searchForm =document.querySelector(".topSearchForm");
         const lastChild = searchForm.lastChild;

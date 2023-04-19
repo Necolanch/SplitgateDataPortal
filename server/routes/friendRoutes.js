@@ -10,7 +10,11 @@ router.get("/:gt", (req, res)=>{
         res.status(200).json(result)
       })
       .catch(err=>{
-        console.log(err)
+        res.status(500).json({
+          error:{
+            message:err.message
+          }
+        })
       })
 })
 
@@ -19,10 +23,8 @@ router.post("/:gt", (req, res) => {
     .exec()
     .then((result) => {
       if (result.friends.length===0) {
-        console.log("No friends yet")
         User.findOneAndUpdate({gamertag: req.params.gt}, {friends:[{gamertag:req.body.gamertag, platform:req.body.platform, alias: req.body.alias}]}, {returnOriginal:false})
             .then(response=>{
-              console.log(response)
               res.status(200).json(response)
             })
       } else {
@@ -38,7 +40,6 @@ router.post("/:gt", (req, res) => {
       }
     })
     .catch((err) => {
-      console.log(err)
       res.status(500).json({
         error: {
           message: `Unable to save friend with gamertag ${req.body.gamertag}`,
