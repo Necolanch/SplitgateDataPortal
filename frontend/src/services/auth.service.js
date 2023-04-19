@@ -15,14 +15,12 @@ const signup = (alias, gamertag, platform, password) => {
       return response.json();
     })
     .then((data) => {
-      console.log("Signing up");
-      console.log(data);
       if (data.token) {
         localStorage.setItem("user", JSON.stringify(data));
       }
       return data;
     })
-    .catch((error) => console.log(error));
+    .catch((error) => error);
 };
 
 const login = (gamertag, password) => {
@@ -38,16 +36,13 @@ const login = (gamertag, password) => {
         window.location.href = "http://localhost:3000/home";
       }
       return data;
-    });
+    })
+    .catch(error=>error);
 };
 
 const logout = () => {
   localStorage.removeItem("user");
 };
-
-const getCurrentUser = () => {
-  return JSON.parse(localStorage.getItem("user"));
-};
-const authService = { signup, login, logout, getCurrentUser };
+const authService = { signup, login, logout};
 
 export default authService;

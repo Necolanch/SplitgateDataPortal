@@ -28,7 +28,7 @@ const FriendsList = props => {
             setFriends(result.friends);
         })
         .catch(err=>{
-            console.log(err)
+            throw Error (err.message)
         })
     };
 
@@ -93,6 +93,7 @@ const FriendsList = props => {
               setFriendSearched(true)
             }
           })
+        .catch(err=>{throw Error(err.message)})
     }
 
     useEffect(()=>{

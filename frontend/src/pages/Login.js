@@ -8,9 +8,7 @@ const Login = (props) => {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    console.log("STart of signup");
     try {
-      console.log("Trying signup");
       authService.login(gamertag, password);
     } catch (error) {
       console.error(error);

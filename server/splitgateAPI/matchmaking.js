@@ -38,7 +38,6 @@ const generalStats = async (platform, gamertag) =>{
         return data;
         
     } catch (error) {
-        console.error(error);
         res.status(500).json({message: error.message})
     }
 }

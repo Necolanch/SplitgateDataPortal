@@ -12,13 +12,11 @@ const Signup = (props) => {
 
   const handleSignup = async (e) => {
     e.preventDefault();
-    console.log("STart of signup");
     try {
-      console.log("Trying signup");
       authService.signup(alias, gamertag, platform, password);
       navigate("/login");
     } catch (error) {
-      console.error(error);
+      return error
     }
   };
   return (

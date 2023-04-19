@@ -25,19 +25,14 @@ const UserSchema = mongoose.Schema({
 });
 
 UserSchema.pre("save", function (next) {
-  console.log("before save");
   const user = this;
   if (user.isNew || user.isModified("password")) {
     bcrypt.genSalt(10, (error, salt) => {
-      console.log("doing password stuff");
       if (error) {
-        console.log(error);
         return next(error);
       }
       bcrypt.hash(user.password, salt, (error, hash) => {
-        console.log("hashing password");
         if (error) {
-          console.log(error);
           return next(error);
         }
         user.password = hash;

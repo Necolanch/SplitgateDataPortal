@@ -223,20 +223,14 @@ const Home = (props) => {
     return ()=>{
       let visits = parseInt(localStorage.getItem("visits"));
     if (isNaN(visits)) {
-      // First visit, set visits count to 1 and display tour
       localStorage.setItem("visits",1)
-      // Display tour
-      console.log('Welcome to our website! Take a tour to learn about our features.');
     } else {
-      // Not first visit, increment visits count and check if tour should be displayed
       localStorage.setItem("visits", visits+1);
-      console.log("home again")
     }
     };
   }, []);
 
   const visits = parseInt(localStorage.getItem("visits"));
-  console.log(visits)
   if (isNaN(visits)) {
     return (
       <ShepherdTour steps={steps} tourOptions={tourOptions}>
