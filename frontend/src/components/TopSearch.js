@@ -32,7 +32,9 @@ const TopSearch = props => {
         await fetch(`http://localhost:3001/search/${platform}/${gt}`, {headers:authHeader()})
         .then(response=>response.json())
         .then(result=>{
-          if (result.errors[0].message) {
+          if (result.errors===undefined) {
+            setPlayerSearched(true)
+          } else if (result.errors[0].message) {
             if (document.querySelector(".error")) {
               return null;
             } else {
@@ -40,8 +42,6 @@ const TopSearch = props => {
             error.innerHTML=`<img class="errorIcon" src=${require("../Icons-IMG/error.png")} alt="" width="35" height="35"/> <span class="errorMessage text-red-500 ml-4">PLAYER NOT FOUND</span>`;
             searchForm.append(error);
             }
-          } else{
-            setPlayerSearched(true)
           }
         })
       }
