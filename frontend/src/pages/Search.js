@@ -23,37 +23,33 @@ const Search = () => {
   const season=useRef("");
 
   const searchPlayer = async(gt, platform, event) => {
-    //Use state variable for if a player is searched, set to false initially. If that is true
-    //and valid, return should be of Details page component with gamertag prop passed in
-    //If false do another ternary asking if errorStatus is true or false, if true return
-    //search page with error message, if false return Search page as normal
     event.preventDefault();
-  
     const searchForm =document.querySelector(".searchForm");
     const lastChild = searchForm.lastChild;
     if (lastChild.className.includes("error")) {
       searchForm.removeChild(lastChild) 
     }
     const error = document.createElement("div");
-    searchForm.append(error);
     if (platform!=="xbl" && platform!=="psn" && platform!=="steam") {
-        error.className="error flex items-center mt-8";
+        error.className="error flex items-center ml-8";
         error.innerHTML=`<img class="errorIcon" src=${require("../Icons-IMG/error.png")} alt="" width="35" height="35"/> <span class="errorMessage text-red-500 ml-4">PLATFORM NOT FOUND</span>`;
+        searchForm.append(error);
     }
     setSearchGamertag(gt);
     setSearchPlatform(platform);
     await fetch(`http://localhost:3001/search/${platform}/${gt}`, {headers:authHeader()})
     .then(response=>response.json())
     .then(result=>{
-      if (result.errors[0].message) {
+      if (result.errors===undefined) {
+        setPlayerSearched(true)
+      } else if (result.errors[0].message) {
         if (document.querySelector(".error")) {
           return null;
         } else {
-        error.className="error flex items-center mt-8";
+        error.className="error flex items-center ml-8";
         error.innerHTML=`<img class="errorIcon" src=${require("../Icons-IMG/error.png")} alt="" width="35" height="35"/> <span class="errorMessage text-red-500 ml-4">PLAYER NOT FOUND</span>`;
+        searchForm.append(error);
         }
-      } else{
-        setPlayerSearched(true)
       }
     })
   }
