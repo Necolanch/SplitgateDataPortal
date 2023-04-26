@@ -55,6 +55,10 @@ const Settings = () => {
       setGt(result.gamertag);
         setAlias(result.alias);
         setPlatform(result.platform);
+        const form = document.querySelector(".searchForm");
+        const success = document.createElement("p");
+        success.innerText="Account updated";
+        form.appendChild(success);
     })
     .catch(err=>{
       throw Error(err.message);
