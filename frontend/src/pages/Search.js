@@ -76,7 +76,7 @@ useEffect(()=>{
                 <input className="searchInput w-11/12 h-16 p-2 text-2xl" ref={gamertag} placeholder="Gamertag (SteamID64 for Steam)" />
               </div>
               <div className="inputBorder w-1/6 h-24 mt-8 border border-white flex justify-center items-center">
-                <select className="searchInput w-11/12 h-16 p-2 text-2xl" ref={season} placeholder="steam/xbl/psn" type="text">
+                <select className="searchInput w-11/12 h-16 p-2 text-2xl" ref={season}>
                   <option>Select a platform</option>
                   <option>psn</option>
                   <option>xbl</option>
