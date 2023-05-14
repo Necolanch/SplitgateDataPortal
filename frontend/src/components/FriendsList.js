@@ -138,7 +138,12 @@ const FriendsList = props => {
                 
                 <div className="inputBorder border h-auto p-2 mb-4 flex flex-col text-center">
                 <label>Platform:</label>
-                <input className="searchInput text-black" ref={newPlatform}/>
+                <select className="searchInput text-black" ref={newPlatform}>
+                <option>Select a platform</option>
+                  <option>psn</option>
+                  <option>xbl</option>
+                  <option>steam</option>
+                </select>
                 </div>
 
                 <div className="inputBorder border p-1 mb-4">

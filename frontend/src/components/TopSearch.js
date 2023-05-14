@@ -58,7 +58,12 @@ const TopSearch = props => {
                 <input className="searchInput p-1" ref={gamertag}placeholder="Gamertag"></input>
             </div>
             <div className="inputBorder border p-1 ml-6 w-24">
-                <input className="searchInput w-full p-1" type="text" ref={season}placeholder="Platform"></input>
+                <select className="searchInput w-full p-1" ref={season}>
+                <option>Select a platform</option>
+                  <option>psn</option>
+                  <option>xbl</option>
+                  <option>steam</option>
+                </select>
             </div>
             <div className="inputBorder border ml-6 p-1">
             <button className="searchButton p-1 w-20" type="submit">Search</button>
