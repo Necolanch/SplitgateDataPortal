@@ -22,7 +22,9 @@ router.get("/:gamertag", (req, res) => {
 router.patch("/:gamertag", (req, res) => {
   const gt = req.params.gamertag;
   const updatedAccount = {
-    alias: req.body.alias
+    alias: req.body.alias,
+    gamertag:req.body.gamertag,
+    platform:req.body.plaform
   };
   User.findOneAndUpdate({ gamertag: gt }, updatedAccount, {
     returnOriginal: false,
@@ -31,7 +33,7 @@ router.patch("/:gamertag", (req, res) => {
     .then((result) => {
       if (!result) {
         return res.status(404).json({
-          message: Messages.teamNotFound,
+          message: "User not found",
         });
       }
       res.status(200).json(result);

@@ -1,7 +1,7 @@
-import React, {useState, useEffect, useContext} from "react";
+import React, {useState, useEffect, useContext, useRef} from "react";
 
 import SettingsNavigation from "../components/SettingsNavigation";
-import { FirstNameInput, LeftDisabled, RightDisabledInput, RightDisabledPassword } from "../components/Input";
+import { FirstNameInput, LeftInput, RightDisabledInput } from "../components/Input";
 import { SettingsAvatar } from "../components/Avatar";
 
 import {GamertagContext} from "../contexts/Gamertag"
@@ -12,9 +12,10 @@ import "../CSS/settings.css";
 const Settings = () => {
   
   //const [password, setPassword] = useState("");
-  const [platform, setPlatform] = useState("");
-  const [alias, setAlias] = useState("");
-  const [gt, setGt] = useState("");
+  const platform=useRef("");
+  const alias = useRef("");
+  const gt = useRef("");
+  const [currentGt, setCurrentGt]=useState("")
 
   const {firstNameInput, lastNameInput, emailInput} = useContext(GamertagContext);
   const user=JSON.parse(localStorage.getItem("user"));
@@ -24,9 +25,10 @@ const Settings = () => {
       await fetch(`http://localhost:3001/users/${user.user_gt}`, {headers:authHeader()})
       .then(response=>response.json())
       .then(result=>{
-        setGt(result.gamertag);
-        setAlias(result.alias);
-        setPlatform(result.platform);
+        alias.current.value=result.alias;
+        gt.current.value=result.gamertag;
+        platform.current.value=result.platform;
+        setCurrentGt(result.gamertag)
         //setPassword(result.password)
       })
       .catch(err=>{
@@ -38,23 +40,29 @@ const Settings = () => {
     };
   }, [gt])
 
-  const updateAccount = async (e, newAlias) => {
+  const updateAccount = async (e, newAlias, gamertag, plat) => {
     e.preventDefault();
-    await fetch(`http://localhost:3001/users/${gt}`, {
+    await fetch(`http://localhost:3001/users/${currentGt}`, {
       method:"PATCH",
       headers:{
         "Authorization":user.token,
         "Content-Type":"application/json"
       },
       body:JSON.stringify({
-        alias:newAlias
+        alias:newAlias,
+        gamertag:gamertag,
+        platform:plat
       })
     })
     .then(response=>response.json())
     .then(result=>{
-      setGt(result.gamertag);
-        setAlias(result.alias);
-        setPlatform(result.platform);
+      gt.current.value=result.gamertag;
+        alias.current.value=result.alias;
+        platform.current.value=result.platform;
+        console.log(user);
+        user["user_gt"]=result.gamertag;
+        user["user_platform"]=result.platform;
+        localStorage.setItem("user", JSON.stringify(user));
         const form = document.querySelector(".searchForm");
         const success = document.createElement("p");
         success.innerText="Account updated";
@@ -73,17 +81,22 @@ const Settings = () => {
             
             <h3 className="absolute w-screen text-center text-3xl uppercase font-semibold text-white mt-16">Settings</h3>
 
-            <form onSubmit={e=>updateAccount(e, firstNameInput.current.value)} className="searchForm inputBorder absolute w-2/5 h-3/5 flex flex-col items-center top-1/4 left-1/4 ml-20 z-10 border">
+            <form onSubmit={e=>updateAccount(e, alias.current.value, gt.current.value, alias.current.value)} className="searchForm inputBorder absolute w-2/5 h-3/5 flex flex-col items-center top-1/4 left-1/4 ml-20 z-10 border">
               <div className="mt-40">
                 <div className="flex mb-20">
 
-                  <FirstNameInput label="Alias" value={alias} />
+                  <FirstNameInput label="Alias" reference={alias} />
 
-                  <RightDisabledInput label="Platform" value={platform} />
+                  <select ref={platform}>
+                  <option>Select a platform</option>
+                  <option>psn</option>
+                  <option>xbl</option>
+                  <option>steam</option>
+                  </select>
                 </div>
 
                 <div className="flex">
-                  <LeftDisabled label="Gamertag" value={gt} />
+                  <LeftInput label="Gamertag" reference={gt} />
                 </div>
 
               </div>

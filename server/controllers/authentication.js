@@ -50,10 +50,9 @@ exports.signup = (req, res, next) => {
 
 exports.signin = (req, res, next) => {
   const user = req.user;
-  res
-    .send({
-      token: tokenForUser(user),
-      user_gt: user.gamertag,
-      user_platform: user.platform,
-    });
+  res.send({
+    token: tokenForUser(user),
+    user_gt: user.gamertag,
+    user_platform: user.platform,
+  });
 };
