@@ -25,8 +25,8 @@ const Signup = (props) => {
       signupForm.append(error);
   } else{
     try {
-      authService.signup(alias, gamertag, platform.current.value, password);
-      navigate("/login");
+      await authService.signup(alias, gamertag, platform.current.value, password);
+      navigate("/home");
     } catch (error) {
       return error
     }

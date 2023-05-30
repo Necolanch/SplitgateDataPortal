@@ -1,15 +1,17 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import authService from "../services/auth.service";
 
 const Login = (props) => {
   const [gamertag, setGamertag] = useState("");
   const [password, setPassword] = useState("");
+  const navigate=useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      authService.login(gamertag, password);
+      await authService.login(gamertag, password);
+      navigate("/home")
     } catch (error) {
       console.error(error);
     }

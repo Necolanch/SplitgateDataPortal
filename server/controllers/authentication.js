@@ -43,7 +43,8 @@ exports.signup = (req, res, next) => {
       if (error) {
         return next(error);
       }
-      res.status(200).end();
+      res.status(200).json({user_gt: user.gamertag,
+        user_platform: user.platform, token: tokenForUser(user)});
     });
   });
 };
