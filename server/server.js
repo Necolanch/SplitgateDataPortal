@@ -3,6 +3,7 @@ const app = express();
 const cors = require("cors");
 const mongoose = require("mongoose");
 const passport = require("passport");
+const rateLimit=require("express-rate-limit");
 const passportService = require("./services/passport");
 const protectedRoute = passport.authenticate("jwt", { session: false });
 require("dotenv").config();
@@ -19,6 +20,12 @@ app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
+const limiter=rateLimit({
+  windowMs:1*60*1000,
+  max:5
+})
+
+app.use(limiter);
 
 //middleware to handle CORS
 app.use((req, res, next) => {

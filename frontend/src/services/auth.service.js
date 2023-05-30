@@ -1,7 +1,7 @@
 const server = "http://localhost:3001/auth";
 
-const signup = (alias, gamertag, platform, password) => {
-  fetch(`${server}/signup`, {
+const signup = async (alias, gamertag, platform, password) => {
+  await fetch(`${server}/signup`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
@@ -11,9 +11,7 @@ const signup = (alias, gamertag, platform, password) => {
       password: password,
     }),
   })
-    .then((response) => {
-      return response.json();
-    })
+    .then((response) => response.json())
     .then((data) => {
       if (data.token) {
         localStorage.setItem("user", JSON.stringify(data));
@@ -23,8 +21,8 @@ const signup = (alias, gamertag, platform, password) => {
     .catch((error) => error);
 };
 
-const login = (gamertag, password) => {
-  fetch(`${server}/login`, {
+const login = async (gamertag, password) => {
+  await fetch(`${server}/login`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ gamertag, password }),
@@ -33,7 +31,7 @@ const login = (gamertag, password) => {
     .then((data) => {
       if (data.token) {
         localStorage.setItem("user", JSON.stringify(data));
-        window.location.href = "http://localhost:3000/home";
+        //window.location.href = "http://localhost:3000/home";
       }
       return data;
     })
