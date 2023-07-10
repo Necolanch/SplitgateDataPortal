@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import image from "../Icons-IMG/portalbg.png"
 import authService from "../services/auth.service";
 
 const Login = (props) => {
@@ -17,12 +18,10 @@ const Login = (props) => {
     }
   };
   return (
-    <div>
-      <Link to="/home" className="link">
-        Home
-      </Link>
-      <form action="POST" onSubmit={handleLogin}>
-        <label>Gamertag/SteamID:</label>
+    <div className="w-screen h-screen flex flex-col items-center">
+      <div className="absolute w-screen h-screen grayscale opacity-5" style={{backgroundImage: `url(${image})`, backgroundRepeat:"no-repeat", backgroundSize:"cover"}}></div>
+      <form className="h-screen flex flex-col items-center justify-center z-10" action="POST" onSubmit={handleLogin}>
+        <label className="text-blue-300 mt-4">Gamertag/SteamID:</label>
         <input
           type="text"
           name="gamertag"
@@ -30,7 +29,7 @@ const Login = (props) => {
           onChange={(e) => setGamertag(e.target.value)}
         ></input>
 
-        <label>Password:</label>
+        <label className="text-blue-300 mt-4">Password:</label>
         <input
           type="text"
           name="password"
@@ -38,7 +37,7 @@ const Login = (props) => {
           onChange={(e) => setPassword(e.target.value)}
         ></input>
 
-        <button type="submit">Login</button>
+        <button className=" bg-red-400 p-2 w-20 rounded-md mt-4" type="submit">Login</button>
       </form>
     </div>
   );
