@@ -1,5 +1,6 @@
 import React, { useState, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import image from "../Icons-IMG/portalbg.png"
 import authService from "../services/auth.service";
 
 const Signup = (props) => {
@@ -33,20 +34,19 @@ const Signup = (props) => {
   }
   };
   return (
-    <div className="signup">
-      <Link to="/home" className="link">
-        Home
-      </Link>
-      <form action="POST" onSubmit={handleSignup}>
-        <label>Alias:</label>
+    <div className="signup w-screen h-screen flex flex-col items-center">
+      <div className="absolute w-screen h-screen grayscale opacity-5" style={{backgroundImage: `url(${image})`, backgroundRepeat:"no-repeat", backgroundSize:"cover"}}></div>
+      <form action="POST" onSubmit={handleSignup} className="h-screen flex flex-col items-center justify-center z-10">
+        <label className="text-blue-300 mt-4">Alias:</label>
         <input
+          className="p-2"
           type="text"
           name="alias"
           value={alias}
           onChange={(e) => setAlias(e.target.value)}
         ></input>
 
-        <label>Gamertag/SteamID:</label>
+        <label className="text-blue-300 mt-4">Gamertag/SteamID:</label>
         <input
           type="text"
           name="gamertag"
@@ -54,7 +54,7 @@ const Signup = (props) => {
           onChange={(e) => setGamertag(e.target.value)}
         ></input>
 
-        <label>Platform:</label>
+        <label className="text-blue-300 mt-4">Platform:</label>
         <select ref={platform}>
           <option>Select a platform</option>
           <option>psn</option>
@@ -62,7 +62,7 @@ const Signup = (props) => {
           <option>steam</option>
         </select>
 
-        <label>Password:</label>
+        <label className="text-blue-300 mt-4">Password:</label>
         <input
           type="text"
           name="password"
@@ -70,7 +70,7 @@ const Signup = (props) => {
           onChange={(e) => setPassword(e.target.value)}
         ></input>
 
-        <button type="submit">Sign Up</button>
+        <button className=" bg-red-400 p-2 w-20 rounded-md mt-4" type="submit">Sign Up</button>
       </form>
     </div>
   );
